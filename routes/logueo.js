@@ -5,15 +5,6 @@ var router = express.Router()
 
 var firmaToken = '123pwd'
 
-/*async function conecta(){
-    return await mysql.createConnection({
-        host: 'localhost',
-        user: 'kabarca',
-        database: 'delilah_bd',
-        password: 'pass123*1'
-    })
-}*/
-
 router.use(express.json())
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {

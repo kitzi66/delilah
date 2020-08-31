@@ -47,8 +47,6 @@ router.use(validaToken);
 // sino solo envia la informacion del usuario logueado
 router.get('/', esAdmon, async function (req, res) {
     try {
-        //db = await conecta()
-        debugger
         const [rows, fields] = await req.db.execute('SELECT * from usuarios')
         return res.json(rows);
     } catch (err) {
@@ -62,8 +60,7 @@ router.get('/:id', async function (req, res) {
         if(req.usuario.role == 0 && req.params.id != req.usuario.id){
             return res.status(404).json({message: 'Usted solo puede consultar la informacion de su usuario'})
         }
-        db = await conecta()
-        const [rows, fields] = await db.execute('SELECT * from usuarios WHERE id = ?', [req.params.id])
+        const [rows, fields] = await req.db.execute('SELECT * from usuarios WHERE id = ?', [req.params.id])
         return res.json(rows);
     } catch (err) {
         return res.status(400).json({message: 'Error al consultar los usuarios por id'})
@@ -75,14 +72,13 @@ router.get('/:id', async function (req, res) {
 router.post('/', async function (req, res) {
     try{
     const { username, nombre, email, telefono, direccion, password, role } = req.body;
-        debugger
+
     let newRole = role;
     if(req.usuario.role == 0){
         newRole = 0;
     }
 
-    db = await conecta()
-    const [rows, fields] = await db.execute('INSERT INTO usuarios(username, nombre, email, telefono, direccion, password, role) VALUES(?,?,?,?,?,?,?)', 
+    const [rows, fields] = await req.db.execute('INSERT INTO usuarios(username, nombre, email, telefono, direccion, password, role) VALUES(?,?,?,?,?,?,?)', 
         [username, nombre, email, telefono, direccion, password, newRole])
 
 
@@ -93,12 +89,32 @@ router.post('/', async function (req, res) {
     }
 });
 
+router.put('/', async function (req, res) {
+    try{
+    const { id, username, nombre, email, telefono, direccion, password, role } = req.body;
+
+    let newRole = role;
+    if(req.usuario.role == 0){
+        newRole = 0;
+    }
+
+    const [rows, fields] = await req.db.execute('UPDATE usuarios SET username=?, nombre=?, email=?, telefono=?, direccion=?, password=?, role=? WHERE id=?', 
+        [username, nombre, email, telefono, direccion, password, newRole, id])
+
+    res.status(200).json({id: id});
+    }catch(error){
+        console.log(error)
+        res.status(404).json({message: 'Error en datos'})
+    }
+});
+
 router.delete('/:id', esAdmon, async function (req, res) {
     try {
-        db = await conecta()
-        const [rows, fields] = await db.execute('DELETE from usuarios WHERE id = ?', [req.params.id])
+        const [rows, fields] = await req.db.execute('DELETE from usuarios WHERE id = ?', [req.params.id])
         return res.status(200).json({message: 'El usuario ha sido eliminado'});
     } catch (err) {
+        debugger
+        console.log(err)
         return res.status(400).json({message: 'Error al eliminar el usuario'})
     }
 });
