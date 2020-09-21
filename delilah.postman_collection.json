@@ -1,0 +1,537 @@
+{
+	"info": {
+		"_postman_id": "e010aa97-8c84-4125-ba15-a3d3d399eabd",
+		"name": "delilah",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "listado_usuarios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAwMzcxMDA5fQ.ZEREG_JtSQ-FGFQ0DniYZ4z64eki3p87i_UPw8-dqcg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/usuarios",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuarioById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MCwiaWF0IjoxNjAwMzcyOTQ1fQ.GPzRj-Umq-bNKi2QMOxWj-r4PFTZL9e3-udM023pceI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/usuarios/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borrar_usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAwMzcxMDA5fQ.ZEREG_JtSQ-FGFQ0DniYZ4z64eki3p87i_UPw8-dqcg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/usuarios/11",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear_usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAwMzcxMDA5fQ.ZEREG_JtSQ-FGFQ0DniYZ4z64eki3p87i_UPw8-dqcg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"fleon\",\n  \"nombre\": \"Fernando Leon\",\n  \"email\": \"fleon@algo.com\",\n  \"telefono\": 8765,\n  \"direccion\": \"Cdmx\",\n  \"password\": \"fernando\",\n  \"role\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/usuarios",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar_usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNjAwMzcxMDA5fQ.ZEREG_JtSQ-FGFQ0DniYZ4z64eki3p87i_UPw8-dqcg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"fab93\",\n    \"nombre\": \"Fabiola Leon\",\n    \"email\": \"fabi93@algo.com\",\n    \"telefono\": \"876655\",\n    \"direccion\": \"rio hondo 98\",\n    \"password\": \"faby\",\n    \"role\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/usuarios/12",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "consulta_platillos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNTk4ODE4NzA0fQ.m67BSTk5Z0N-KNsgTcuvOeXJ4znmVR7_lpMcCR7KA3s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/productos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consulta_platillos_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNTk4ODE4NzA0fQ.m67BSTk5Z0N-KNsgTcuvOeXJ4znmVR7_lpMcCR7KA3s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/productos/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"productos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borrar_platillo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNTk4ODE4NzA0fQ.m67BSTk5Z0N-KNsgTcuvOeXJ4znmVR7_lpMcCR7KA3s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/productos/4",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"productos",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear_platillos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNTk4ODE4NzA0fQ.m67BSTk5Z0N-KNsgTcuvOeXJ4znmVR7_lpMcCR7KA3s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Fresas con crema\",\n  \"imagen\": \"img64:...\",\n  \"precio\": 35.00,\n  \"estatus\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/productos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar_platillos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNTk4ODE4NzA0fQ.m67BSTk5Z0N-KNsgTcuvOeXJ4znmVR7_lpMcCR7KA3s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"nombre\": \"Pierna al horno\",\n  \"imagen\": \"img64:...\",\n  \"precio\": 154.90,\n  \"estatus\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/productos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Pedidos",
+			"item": [
+				{
+					"name": "consulta_pedidos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNTk4ODE4NzA0fQ.m67BSTk5Z0N-KNsgTcuvOeXJ4znmVR7_lpMcCR7KA3s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/pedidos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear_pedido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNTk4ODE4NzA0fQ.m67BSTk5Z0N-KNsgTcuvOeXJ4znmVR7_lpMcCR7KA3s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"usuario_id\": 1,\n  \"estatus\": 1,\n  \"forma_pago\": \"Efectivo\",\n  \"detalle\": [\n      {\n        \"platillo_id\": 1,\n        \"precio\": 154.98,\n        \"cantidad\": 1\n      },\n      {\n        \"platillo_id\": 2,\n        \"precio\": 45.92,\n        \"cantidad\": 1\n      }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/pedidos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar_pedidos_estatus",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNTk4ODE4NzA0fQ.m67BSTk5Z0N-KNsgTcuvOeXJ4znmVR7_lpMcCR7KA3s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 1,\n  \"estatus\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/pedidos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consulta_pedidos_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNTk4ODE4NzA0fQ.m67BSTk5Z0N-KNsgTcuvOeXJ4znmVR7_lpMcCR7KA3s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/pedidos/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pedidos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borrar_pedidos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNTk4ODE4NzA0fQ.m67BSTk5Z0N-KNsgTcuvOeXJ4znmVR7_lpMcCR7KA3s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/pedidos/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pedidos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"usuario\": \"kabarca\",\n    \"password\": \"pass123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/logueo",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"logueo"
+					]
+				},
+				"description": "Endpoint que nos permite obtener un token valido, mediante el uso del usuario y password"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

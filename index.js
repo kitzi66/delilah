@@ -8,7 +8,7 @@ function usaDb(req, res, next){
     conexion.then( con => {
         req.db = con;
         console.log('conexion a BD -- OK')
-        next()
+        return next()
     });
 
     

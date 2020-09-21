@@ -5,8 +5,6 @@ var router = express.Router();
 
 var firmaToken = '123pwd'
 
-//const { use } = require('./logueo');
-
 function validaToken(req, res, next) {
     try {
         const token = req.headers.authorization.split(' ')[1]
@@ -47,14 +45,13 @@ router.get('/', async function (req, res) {
             [rows, fields] = await req.db.execute('SELECT * from pedidos WHERE usuario_id=?', [req.usuario.id])
         }
 
-        debugger
-       datos = JSON.stringify(rows)
-       datos1 = JSON.parse(datos)
-        for(let i in datos1){
+        datos = JSON.stringify(rows)
+        datos1 = JSON.parse(datos)
+        for (let i in datos1) {
             const [rows_detalle, fields_detalle] = await req.db.execute('SELECT * from detalle_pedido WHERE pedido_id = ?', [datos1[i].id])
             datos1[i].detalle = rows_detalle;
         }
-       
+
         return res.status(200).json(datos1);
     } catch (err) {
         console.log(err)
@@ -76,7 +73,7 @@ router.get('/:id', async function (req, res) {
 
         const [rows_detalle, fields_detalle] = await req.db.execute('SELECT * from detalle_pedido WHERE pedido_id = ?', [req.params.id])
 
-        datos =  await rows.map( obj => {
+        datos = await rows.map(obj => {
             let temporal = {}
             temporal.id = obj.id
             temporal.usuario_id = obj.usuario_id
@@ -87,7 +84,7 @@ router.get('/:id', async function (req, res) {
             temporal.detalle = rows_detalle
             return temporal
         });
-       
+
         return res.status(200).json(datos);
     } catch (err) {
         print(err)
@@ -95,9 +92,7 @@ router.get('/:id', async function (req, res) {
     }
 });
 
-// agregar un pedido, validar datos obligatorios, 
-// el admon es el unico que puede crear platillos
-router.post('/', esAdmon, async function (req, res) {
+router.post('/', async function (req, res) {
     try {
         let total = 0
         let rows;
@@ -106,7 +101,7 @@ router.post('/', esAdmon, async function (req, res) {
         [rows, fields] = await req.db.execute('INSERT INTO pedidos(usuario_id, total, forma_pago, estatus) VALUES(?,?,?,?)',
             [req.usuario.id, total, forma_pago, estatus])
         let pedido_id = rows.insertId
-        
+
         for (let i in detalle) {
             [rows, fields] = await req.db.execute('INSERT INTO detalle_pedido(pedido_id, platillo_id, cantidad, precio) VALUES(?,?,?,?)',
                 [pedido_id, detalle[i].platillo_id, detalle[i].cantidad, detalle[i].precio])
@@ -123,14 +118,14 @@ router.post('/', esAdmon, async function (req, res) {
     }
 });
 
-router.put('/', esAdmon, async function (req, res) {
+router.put('/:id', esAdmon, async function (req, res) {
     try {
-        const { estatus, id } = req.body;
+        const { estatus } = req.body;
 
         const [rows, fields] = await req.db.execute('UPDATE pedidos SET estatus=? WHERE id=?',
-            [estatus, id])
+            [estatus, req.params.id])
 
-        res.status(200).json({ id: id });
+        res.status(200).json({ id: req.params.id });
     } catch (error) {
         console.log(error)
         res.status(404).json({ message: 'Error en datos' })

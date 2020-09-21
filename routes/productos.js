@@ -71,14 +71,14 @@ router.post('/', esAdmon, async function (req, res) {
     }
 });
 
-router.put('/', esAdmon, async function (req, res) {
+router.put('/:id', esAdmon, async function (req, res) {
     try{
-        const { id, nombre, imagen, precio, estatus } = req.body;
+        const { nombre, imagen, precio, estatus } = req.body;
 
     const [rows, fields] = await req.db.execute('UPDATE platillos SET nombre=?, imagen=?, precio=?, estatus=? WHERE id=?', 
-        [nombre, imagen, precio, estatus, id])
+        [nombre, imagen, precio, estatus, req.params.id])
 
-    res.status(200).json({id: id});
+    res.status(200).json({id: req.params.id});
     }catch(error){
         console.log(error)
         res.status(404).json({message: 'Error en datos'})

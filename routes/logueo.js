@@ -6,13 +6,12 @@ var router = express.Router()
 var firmaToken = '123pwd'
 
 router.use(express.json())
-// middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
   console.log('Time: ', Date.now());
   next();
 });
 
-router.get('/', async function(req, res) {
+router.post('/', async function(req, res) {
     try{
         const {usuario, password} = req.body;
 
@@ -41,6 +40,14 @@ async function guardaToken(db, usuario, token){
     const [rows, fields] = await db.execute('UPDATE usuarios SET token_actual = \'' + token + '\' WHERE id = \'' + usuario.id + '\'')
     console.log(rows)
     return true
+}
+
+async function validaToken(db, usuario, token){
+    const [rows, fields] = await db.execute('SELECT estatus WHERE token_actual = \'' + token + '\' AND id = \'' + usuario.id + '\'')
+    if(rows.length > 0){
+        return true
+    }
+    return false
 }
 
 module.exports = router;

@@ -1,10 +1,10 @@
 const mysql = require('mysql2/promise')
+const dotenv = require('dotenv').config();
 
-/*async function conecta(){
-    return await mysql.createConnection({host: 'localhost',user: 'kabarca',database: 'delilah_bd',password: 'pass123*1'})
-}*/
-
-var connection = mysql.createConnection({host: 'localhost',user: 'kabarca',database: 'delilah_bd',password: 'pass123*1'})
-//var connection = conecta()
+var connection = mysql.createConnection({
+    host: process.env.BD_HOST,
+    user: process.env.BD_USER,
+    database: process.env.BD_BASE_DATOS,
+    password: process.env.BD_PASSWORD})
 
 module.exports = connection

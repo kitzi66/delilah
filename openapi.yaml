@@ -1,0 +1,385 @@
+openapi: 3.0.1
+info:
+  title: Delilah Restó
+  version: 1.0.0
+  description: Sistema para un restaurante online
+paths:
+  /logueo:
+    post:
+      summary: Valida usuario y password y entrega token para ejecutar los endpoints
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - usuario
+                - password
+              properties:
+                usuario:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - token
+                properties:
+                  token:
+                    type: string
+  /usuarios:
+    get:
+      summary: Retorna un listado de los usuarios
+      security:
+        - bearerAuth: [] 
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usuario'
+    post:
+      summary: Agregar un usuario
+      security:
+        - bearerAuth: [] 
+      requestBody:
+        description: Objeto necesario para agregar un usuario
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                properties:
+                  id:
+                    type: integer
+        '405':
+          description: Datos de entrada invalidos
+  '/usuarios/{id}':
+    get:
+      summary: Retorna los datos de una usuario dado su ID
+      security:
+        - bearerAuth: [] 
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            description: ID del usuario
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        '404':
+          description: El usuario no existe
+    delete:
+      summary: Eliminar un usuario
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            description: ID del usuario
+      responses:
+        '400':
+          description: ID invalido
+        '404':
+          description: El usuario no existe
+  /platillos:
+    summary: Control de platillos
+    get:
+      summary: Listado de los platillos disponibles
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Platillo'
+        default:
+          description: Default error sample response
+    post:
+      summary: Crear un platillo
+      requestBody:
+        description: Objeto necesario para agregar un platillo
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Platillo'
+      responses:
+        200:
+          description: Ok
+        405:
+          description: Datos incorrectos
+  /platillos/{id}:
+    get:
+      summary: Consultar un platillo por ID
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            description: ID del platillo a consultar
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Platillo'
+        404:
+          description: ID del platillo no encontrado
+    put:
+      summary: Editar un platillo
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            description: ID del platillo a editar
+      requestBody:
+        description: Objeto con los datos del platillo a modificar
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Platillo'
+      responses:
+        200:
+          description: OK
+        404: 
+          description: ID del platillo no encontrado
+    delete:
+      summary: Borrar un platillo
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            description: ID del platillo a eliminar
+      responses:
+        '400':
+          description: ID invalido
+        '404':
+          description: El usuario no existe
+  /pedidos:
+    get:
+      summary: Consulta los pedidos
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pedido'
+    post:
+      summary: Agregar un pedido
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pedido'
+      responses:
+        200:
+          description: Ok
+        404:
+          description: Error en datos del pedido
+  /pedidos/{id}:
+    get:
+      summary: Obtiene los datos de un pedido
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            description: ID del pedido a consultar
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Pedido'
+        404:
+          description: ID del pedido no encontrado
+    put:
+      summary: Editar un pedido
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            description: ID del pedido a editar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pedido'
+      responses:
+        200:
+          description: Ok
+        404:
+          description: ID del pedido no encontrado
+    delete:
+      summary: Borrar un pedido
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            description: ID del pedido a eliminar
+      responses:
+        '400':
+          description: ID invalido
+        '404':
+          description: El Pedido no existe
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Usuario:
+      properties:
+        id:
+          type: integer
+          description: Id del usuario
+          example: 1
+        username:
+          type: string
+          description: Clave del usuario
+          example: Calaberitas
+        nombre:
+          type: string
+          description: Nombre del usuario
+          example: Finado y moribunda
+        email:
+          type: string
+          description: Correo electronico del usuario
+          example: finado@moribunda.com
+        telefono:
+          type: number
+          description: Numero telefonico del usuario
+          example: 1698542176
+        direccion:
+          type: string
+          description: Direccion del usuario
+          example: Siempre viva 201A
+        password:
+          type: string
+          format: password
+          description: Clave de acceso del usuario
+          example: mexico
+        role:
+          enum:
+            - 0
+            - 1
+          description: '0 - usuario, 1 - administrador'
+          example: 0
+        token_actual:
+          type: string
+          example: 98s8d88f8uufuufufuf76s5s5s5s
+    Platillo:
+      properties:
+        id:
+          type: string
+          description: ID del platillo
+          example: 1
+        nombre:
+          type: string
+          description: Nombre del platillo
+          example: Pierna al horno
+        imagen:
+          type: string
+          format: byte
+          description: Imagen base64 del platillo
+          example: 'img64:...'
+        precio:
+          type: number
+          description: Precio del platillo
+          example: 154.98
+    DetallePedido:
+      properties:
+        id:
+          type: integer
+          description: ID del detalle
+          example: 1
+        pedido:
+          $ref: '#/components/schemas/Pedido'
+        platillo:
+          $ref: '#/components/schemas/Platillo'
+        cantidad:
+          type: integer
+          description: Cantidad pedida
+          example: 5
+        precio:
+          type: number
+          description: Precio del platillo
+          format: double
+          example: 34.32
+    Pedido:
+      properties:
+        id:
+          type: integer
+          description: ID del pedido
+          example: 1
+        usuario:
+          $ref: '#/components/schemas/Usuario'
+        detalle:
+          $ref: '#/components/schemas/DetallePedido'
+        fecha:
+          type: string
+          description: Fecha y hora del pedido
+          format: date-time
+          example: {}
+        total:
+          type: number
+          description: Importe total a pagar
+          format: double
+          example: 9999.9
+        forma_pago:
+          type: string
+          description: Forma de pago
+          example: Efectivo
+        estatus:
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+ 
